@@ -4,8 +4,11 @@ import kotlin.math.abs
 fun main() {
     val (firstList, secondList) = loadInputLists("src/input.txt")
     println("Total distance: ${calculateTotalSortedDistance(firstList, secondList)}")
+
+    println("Similarity score: ${calculateSimilarityScore(firstList, secondList)}")
 }
 
+// O(n) time complexity solution. Optimisation on solution with sorting.
 fun calculateTotalSortedDistance(firstList: List<Int>, secondList: List<Int>): Int {
     val firstCountersMap = parseListAsMap(firstList)
     val secondCountersMap = parseListAsMap(secondList)
@@ -34,23 +37,28 @@ fun calculateTotalSortedDistance(firstList: List<Int>, secondList: List<Int>): I
     return total
 }
 
-fun parseListAsMap(firstList: List<Int>): MutableMap<Int, Int> {
-    val asMap = mutableMapOf<Int, Int>();
-    for (i in 0..< firstList.count()) {
-        asMap[firstList[i]] = asMap.getOrPut(firstList[i]) { 0 } + 1
+fun calculateSimilarityScore(firstList: List<Int>, secondList: List<Int>): Int {
+    val secondCountersMap: Map<Int, Int> = parseListAsMap(secondList)
+    var similarity = 0
+
+    for (number in firstList) {
+        secondCountersMap[number]?.let { count ->
+            similarity += number * count
+        }
     }
-    return asMap
+    return similarity
+}
+
+fun parseListAsMap(list: List<Int>): MutableMap<Int, Int> {
+    return list.groupingBy { it }.eachCount().toMutableMap()
 }
 
 fun loadInputLists(filePath: String): Pair<List<Int>, List<Int>> {
-    val listA: MutableList<Int> = mutableListOf()
-    val listB: MutableList<Int> = mutableListOf()
-    File(filePath).useLines { lines ->
+    val (listA, listB) = File(filePath).useLines { lines ->
         lines.map { line ->
-            val parts = line.trim().split("\\s+".toRegex())
-            listA.add(parts[0].toInt())
-            listB.add(parts[1].toInt())
-        }.toList()
+            val (first, second) = line.trim().split("\\s+".toRegex())
+            Pair(first.toInt(), second.toInt())
+        }.unzip()
     }
     return Pair(listA, listB)
 }
