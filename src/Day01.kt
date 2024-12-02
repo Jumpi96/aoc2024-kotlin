@@ -2,7 +2,7 @@ import java.io.File
 import kotlin.math.abs
 
 fun main() {
-    val (firstList, secondList) = loadInputLists("src/input.txt")
+    val (firstList, secondList) = loadInputLists("src/resources/day01/input.txt")
     println("Total distance: ${calculateTotalSortedDistance(firstList, secondList)}")
 
     println("Similarity score: ${calculateSimilarityScore(firstList, secondList)}")
