@@ -1,11 +1,16 @@
 import java.io.File
 
 fun main() {
+    val startTime = System.currentTimeMillis()
+
     val matrix = File("src/resources/day08/input.txt")
         .readLines().map { it.toCharArray() }.toTypedArray()
     println("Total antinode positions: ${countAntinodes(matrix)}")
-}
 
+    val endTime = System.currentTimeMillis()
+    val executionTime = endTime - startTime
+    println("\nExecution time: ${executionTime}ms (${executionTime/1000.0} seconds)")
+}
 const val emptySpot = '.'
 
 // O(n^3) solution
