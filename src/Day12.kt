@@ -99,7 +99,7 @@ fun findFenceSide(matrix: Array<CharArray>, startingRow: Int, startingColumn: In
 }
 
 fun isValid(matrix: Array<CharArray>, row: Int, column: Int): Boolean {
-    return row >= 0 && row < matrix.size && column >= 0 && column < matrix.size
+    return row >= 0 && row < matrix.size && column >= 0 && column < matrix[row].size
 }
 
 fun matrixToGraph(matrix: Array<CharArray>): GraphSystem {
