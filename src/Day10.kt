@@ -15,7 +15,8 @@ fun main() {
     println("\nExecution time: ${executionTime}ms (${executionTime/1000.0} seconds)")
 }
 
-open class GraphSystem(val graph: Map<Coordinate, List<Coordinate>>, val startingCoordinates: List<Coordinate>) {
+open class GraphSystem(val graph: Map<Coordinate, List<Coordinate>>, val startingCoordinates: List<Coordinate>,
+                       val endingCoordinates: List<Coordinate> = listOf()) {
     companion object {
         fun availableDirections(): List<Coordinate> {
             return listOf(Coordinate(0, -1), Coordinate(1, 0), Coordinate(0, 1), Coordinate(-1, 0))
